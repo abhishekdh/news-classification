@@ -51,13 +51,14 @@ def predict():
     # Get the data from the POST request.
     data = request.get_json(force=True)
     print(data)
+    print(data['headline'][0])
     # Make prediction using model loaded from disk as per the data.
     #prediction = model.predict([[np.array(data['exp'])]])
     # Take the first value of prediction
     #output = prediction[0]
-    output = predictdata([data['headline']])
-    print(output)
-    return jsonify(output)
+    output = predictdata(data['headline'][0])
+    print("output = "+output[0])
+    return jsonify(output[0])
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
 
