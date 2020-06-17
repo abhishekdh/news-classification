@@ -78,7 +78,7 @@ def form_predict():
 
 
 if __name__ == '__main__':
-    app.run(host='10.10.11.124',port=5000)
+    app.run(host='10.10.11.124',port=5000, debug=True)
 
 
 
