@@ -74,7 +74,7 @@ print(y_train.head())
 
 clf.fit(X_train,y_train)
 
-text = '‘MS Dhoni at No. 3 would have broken most records’: Gautam Gambhir'
+text = 'MS Dhoni at No. 3 would have broken most records’: Gautam Gambhir'
 
 pred = clf.predict([text])
 print("data data === "+pred)
@@ -95,7 +95,9 @@ print(classification_report(y_test,clf.predict(X_test)))
 
 #Model Save
 import joblib
-joblib.dump(clf,'news_classifier1.pkl')
+joblib.dump(clf,'news_classifier.pkl')
+
+
 
 
 

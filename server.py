@@ -1,5 +1,5 @@
 # Import libraries
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 #import get_data
 import joblib
 import spacy
@@ -36,7 +36,7 @@ def text_data_cleaning(sentence):
 
 def predictdata(text):
     tfidf = TfidfVectorizer(tokenizer=text_data_cleaning)
-    joblib_LR_model = joblib.load('news_classifier1.pkl')
+    joblib_LR_model = joblib.load('news_classifier.pkl')
     print(joblib_LR_model)
     pred = joblib_LR_model.predict([text])
     print(pred)
@@ -44,8 +44,13 @@ def predictdata(text):
 
 
 app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
 # Load the model
-#model = pickle.load(open('news_classifier1.pkl','rb'))
+#model = pickle.load(open('news_classifier.pkl','rb'))
 @app.route('/api',methods=['POST'])
 def predict():
     # Get the data from the POST request.
@@ -59,6 +64,19 @@ def predict():
     output = predictdata(data['headline'][0])
     print("output = "+output[0])
     return jsonify(output[0])
+
+
+@app.route('/form',methods=['POST'])
+def form_predict():
+    # Get the data from the POST request.
+    data = request.form
+    print(data)
+    print(data['headline'][0])
+    output = predictdata(data['headline'][0])
+    print("output = "+output[0])
+    return jsonify(output[0])
+
+
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
 

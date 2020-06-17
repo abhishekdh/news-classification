@@ -45,7 +45,7 @@ text = '‘MS Dhoni at No. 3 would have broken most records’: Gautam Gambhir'
 
 def predictdata(text):
     tfidf = TfidfVectorizer(tokenizer=text_data_cleaning)
-    joblib_LR_model = joblib.load('news_classifier1.pkl')
+    joblib_LR_model = joblib.load('news_classifier.pkl')
     print(joblib_LR_model)
     pred = joblib_LR_model.predict([text])
     print(pred)
