@@ -56,25 +56,27 @@ def predict():
     # Get the data from the POST request.
     data = request.get_json(force=True)
     print(data)
-    print(data['headline'][0])
-    # Make prediction using model loaded from disk as per the data.
-    #prediction = model.predict([[np.array(data['exp'])]])
-    # Take the first value of prediction
-    #output = prediction[0]
-    output = predictdata(data['headline'][0])
-    print("output = "+output[0])
-    return jsonify(output[0])
+    if data['headline'] != "":
+     output = predictdata(data['headline'][0])
+     print("output = " + output[0])
+     return jsonify(output[0])
+    else:
+     output = 'Input cannot pe empty!!'
+     return jsonify(output)
+
 
 
 @app.route('/form',methods=['POST'])
 def form_predict():
     # Get the data from the POST request.
     data = request.form
-    print(data)
-    print(data['headline'][0])
-    output = predictdata(data['headline'][0])
-    print("output = "+output[0])
-    return jsonify(output[0])
+    print("data = ",data['headline'])
+    if data['headline'] != "":
+     output = predictdata(data['headline'][0])
+     return jsonify(output[0])
+    else:
+     output = 'Input cannot pe empty!!'
+     return jsonify(output)
 
 
 if __name__ == '__main__':

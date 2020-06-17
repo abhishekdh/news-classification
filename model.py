@@ -1,21 +1,18 @@
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv('preprocessed_data.csv',nrows=10000)
+data = pd.read_csv('preprocessed_data.csv',nrows=80000)
 
 print(data.shape)
 print(data.head())
 print(data.keys())
 
-data[data['category'] == 'e']
-
 news_data = data[['headline','authors','category']]
 print(news_data.head())
 
-
-
 news_data['category'].value_counts()
 
+print(news_data.isnull().sum())
 news_data.isnull().sum()
 
 #Tokenization
@@ -54,8 +51,6 @@ def text_data_cleaning(sentence):
             cleaned_tokens.append(token)
     return cleaned_tokens
 
-text_data_cleaning("  tis is the best in the Himansuh")
-
 #Classification
 from sklearn.svm import LinearSVC
 tfidf = TfidfVectorizer(tokenizer=text_data_cleaning)
@@ -74,18 +69,10 @@ print(y_train.head())
 
 clf.fit(X_train,y_train)
 
-text = 'MS Dhoni at No. 3 would have broken most records’: Gautam Gambhir'
+text = 'How to boil and peel eggs the right way'
 
 pred = clf.predict([text])
 print("data data === "+pred)
-if pred == 'b':
-    print("Business News")
-elif pred == 't':
-    print("Science and Technology")
-elif pred == 'e':
-    print("Entertainment")
-elif pred == 'm':
-    print("Health")
 
 
 
